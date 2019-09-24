@@ -42,3 +42,13 @@ Taeith
 *** Fichier '* Startup Log *'
 Traitement de '/etc/joe/editorrc'...Traitement de '/etc/joe/ftyperc'...Finished processing /etc/joe/ftyperc
 Finished processing /etc/joe/editorrc
+
+*** These modified files were found in JOE when it aborted on Tue Sep 24 09:45:52 2019
+*** JOE was aborted because the terminal closed
+
+*** Fichier '(Sans nom)'
+/home/6if1/npernet/.gitconfig
+
+*** Fichier '* Startup Log *'
+Traitement de '/etc/joe/editorrc'...Traitement de '/etc/joe/ftyperc'...Finished processing /etc/joe/ftyperc
+Finished processing /etc/joe/editorrc
