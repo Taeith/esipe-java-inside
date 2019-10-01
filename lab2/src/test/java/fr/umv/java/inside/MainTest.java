@@ -15,12 +15,12 @@ public class MainTest {
 	    	this.lastName = Objects.requireNonNull(lastName);
 		}
 	  	
-	  	@JSONProperty
+	  	@JSONProperty("first-name")
 		public String getFirstName() {
 			return firstName;
 		}
 
-		@JSONProperty
+		@JSONProperty("last-name")
 		public String getLastName() {
 			return lastName;
 		}
@@ -65,8 +65,8 @@ public class MainTest {
 
 	@Test
 	void testAlien3() {
-		Alien alien = new Alien("", 1);
-		assertEquals("{ planet : , age : 1 }", Main.toJSON(alien));
+		Alien alien = new Alien("Kévin", 8);
+		assertEquals("{ planet : Kévin, age : 8 }", Main.toJSON(alien));
 	}
 
 	@Test
@@ -84,31 +84,31 @@ public class MainTest {
 	@Test
 	void testPerson1() {
 		Person person = new Person("", "");
-		assertEquals("{ firstName : , lastName :  }", Main.toJSON(person));
+		assertEquals("{ first-name : , last-name :  }", Main.toJSON(person));
 	}
 
 	@Test
 	void testPerson2() {
 		Person person = new Person("Kévin", "Martin");
-		assertEquals("{ firstName : Kévin, lastName : Martin }", Main.toJSON(person));
+		assertEquals("{ first-name : Kévin, last-name : Martin }", Main.toJSON(person));
 	}
 
 	@Test
 	void testPerson3() {
 		Person person = new Person("Guillaume", "Mathecowitsch");
-		assertEquals("{ firstName : Guillaume, lastName : Mathecowitsch }", Main.toJSON(person));
+		assertEquals("{ first-name : Guillaume, last-name : Mathecowitsch }", Main.toJSON(person));
 	}
 
 	@Test
 	void testPerson4() {
 		Person person = new Person("Julien", "Bessodes");
-		assertEquals("{ firstName : Julien, lastName : Bessodes }", Main.toJSON(person));
+		assertEquals("{ first-name : Julien, last-name : Bessodes }", Main.toJSON(person));
 	}
 
 	@Test
 	void testPerson5() {
 		Person person = new Person("Nicolas", "Baticle");
-		assertEquals("{ firstName : Nicolas, lastName : Baticle }", Main.toJSON(person));
+		assertEquals("{ first-name : Nicolas, last-name : Baticle }", Main.toJSON(person));
 	}
 
 }

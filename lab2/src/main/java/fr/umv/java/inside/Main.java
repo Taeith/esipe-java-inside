@@ -1,5 +1,6 @@
 package fr.umv.java.inside;
 
+import java.lang.annotation.Annotation;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.UndeclaredThrowableException;
@@ -54,13 +55,23 @@ public class Main {
      	}
      }
 
+     public static String getMethodName(Method g) {
+     	Method getter = Objects.requireNonNull(g);
+     	JSONProperty annotation = getter.getAnnotation(JSONProperty.class);
+     	if (annotation.value().equals(""))
+     		return propertyName(getter.getName());
+     	else
+     		return annotation.value();
+     }
+
 	  public static String toJSON(Object o) {
 
 	  	Object object = Objects.requireNonNull(o);
 
 	  	return Arrays.stream(object.getClass().getMethods())
-	  			.filter(method -> method.getName().startsWith("get") && method.isAnnotationPresent(JSONProperty.class))
-	  			.map(method -> propertyName(method.getName() + " : " + callGetter(object, method)))
+	  			.filter(method -> method.getName().startsWith("get") && 
+	  					method.isAnnotationPresent(JSONProperty.class))
+	  			.map(method -> getMethodName(method) + " : " + callGetter(object, method))
 	  			.collect(Collectors.joining(", ", "{ ", " }"));
 
 	  }
