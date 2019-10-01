@@ -1,3 +1,5 @@
+package fr.umv.java.inside;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.Test;
@@ -18,7 +20,7 @@ class SwitchExampleTest {
 	void testHorse() {
 		assertEquals(4, SwitchExample.switchExample("horse"));
 	}
-
+	/*
 	@Test
 	void testDog2() {
 		assertEquals(1, SwitchExample.switchExample2("dog"));
@@ -33,6 +35,6 @@ class SwitchExampleTest {
 	void testHorse2() {
 		assertEquals(4, SwitchExample.switchExample2("horse"));
 	}
-
+	*/
 }
 

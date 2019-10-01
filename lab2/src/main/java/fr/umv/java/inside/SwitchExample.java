@@ -1,4 +1,6 @@
 
+package fr.umv.java.inside;
+
 public class SwitchExample {
 	
 	static int switchExample(String s) {
