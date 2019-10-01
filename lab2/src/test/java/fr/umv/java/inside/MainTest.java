@@ -14,13 +14,17 @@ public class MainTest {
 	    	this.firstName = Objects.requireNonNull(firstName);
 	    	this.lastName = Objects.requireNonNull(lastName);
 		}
-	  
+	  	
+	  	@JSONProperty
 		public String getFirstName() {
 			return firstName;
 		}
+
+		@JSONProperty
 		public String getLastName() {
 			return lastName;
 		}
+
 	}
 
 	public class Alien {
@@ -35,13 +39,16 @@ public class MainTest {
 	    this.age = age;
 	  }
 
+	  @JSONProperty
 	  public String getPlanet() {
 	    return planet;
 	  }
 
+	  @JSONProperty
 	  public int getAge() {
 	    return age;
 	  }
+	  
 	}
 
 	@Test

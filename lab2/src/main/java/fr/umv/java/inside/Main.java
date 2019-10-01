@@ -59,7 +59,7 @@ public class Main {
 	  	Object object = Objects.requireNonNull(o);
 
 	  	return Arrays.stream(object.getClass().getMethods())
-	  			.filter(method -> method.getName().startsWith("get") && method.getName() != "getClass")
+	  			.filter(method -> method.getName().startsWith("get") && method.isAnnotationPresent(JSONProperty.class))
 	  			.map(method -> propertyName(method.getName() + " : " + callGetter(object, method)))
 	  			.collect(Collectors.joining(", ", "{ ", " }"));
 
