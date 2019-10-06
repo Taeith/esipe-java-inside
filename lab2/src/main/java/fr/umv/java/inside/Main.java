@@ -5,6 +5,8 @@ import java.lang.reflect.Method;
 import java.lang.reflect.UndeclaredThrowableException;
 import java.util.Arrays;
 import java.util.Objects;
+import java.util.Comparator;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 public class Main {
@@ -44,25 +46,57 @@ public class Main {
      	else
      		return annotation.value();
      }
+     
+     private static final ClassValue<Function<Object, String>> cache = new ClassValue<>() {
+    	 
+    	 @Override
+    	 protected Function<Object, String> computeValue(Class<?> myClass) {
+    		 
+    		 return myObject -> Arrays.stream(myClass.getMethods())
+    				 				.filter(method -> method.isAnnotationPresent(JSONProperty.class))
+    				 				.sorted(Comparator.comparing(method -> method.getName()))
+    				 				.map((method) -> (getMethodName(method) + " : " + callGetter(object, method)))
+    				 				.collect(Collectors.joining(",", "{","}"));
+    	 }
+    	 
+    };
 
 	  public static String toJSON(Object o) {
-	  	Object object = Objects.requireNonNull(o);
-	  	
-	  	final ClassValue<Method[]> classValue = new ClassValue<Method[]>() {
-			@Override
-			protected Method[] computeValue(Class<?> type) {
-				return type.getMethods();
-			}
-	  	};
-	  	
-	  	Method[] methods = classValue.get(object.getClass());
-
-	  	return Arrays
-	  			.stream(methods)
-	  				.filter(method -> method.isAnnotationPresent(JSONProperty.class))
-	  				.map(method -> getMethodName(method) + " : " + callGetter(object, method))
-	  				.collect(Collectors.joining(", ", "{ ", " }"));
-
-	  }
-
+		  
+		  Object object = Objects.requireNonNull(o);
+		  return cache
+				  .get(object.getClass())
+				  .apply(object);
 	}
+}
+
+
+
+/*
+public static String toJSON(Object o) {
+  	Object object = Objects.requireNonNull(o);
+  	
+  	final ClassValue<Method[]> classValue = new ClassValue<Method[]>() {
+		@Override
+		protected Method[] computeValue(Class<?> type) {
+			return type.getMethods();
+		}
+  	};
+  	
+  	Method[] methods = classValue.get(object.getClass());
+
+  	return Arrays
+  			.stream(methods)
+  				.filter(method -> method.isAnnotationPresent(JSONProperty.class))
+  				.map(method -> getMethodName(method) + " : " + callGetter(object, method))
+  				.collect(Collectors.joining(", ", "{ ", " }"));
+
+}
+
+
+    		 var methods = Arrays.stream(myClass.getMethods())
+    	             		.filter(method -> method.isAnnotationPresent(JSONProperty.class))
+    	             		.sorted(Comparator.comparing(m -> m.getName()))
+    	             		.collect(Collectors.toList());
+    		 
+*/
