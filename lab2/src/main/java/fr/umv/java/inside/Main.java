@@ -8,25 +8,7 @@ import java.util.Arrays;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
-public class Main {
-
-	/*
-	  public static String toJSON(Person person) {
-	    return
-	        "{\n" +
-	        "  \"firstName\": \"" + person.getFirstName() + "\"\n" +
-	        "  \"lastName\": \"" + person.getLastName() + "\"\n" +
-	        "}\n";
-	  }
-
-	  public static String toJSON(Alien alien) {
-	    return 
-	        "{\n" + 
-	        "  \"planet\": \"" + alien.getPlanet() + "\"\n" + 
-	        "  \"members\": \"" + alien.getAge() + "\"\n" + 
-	        "}\n";
-	  }
-	  */
+public class Main {	
 
      private static String propertyName(String name) {
        return Character.toLowerCase(name.charAt(3)) + name.substring(4);
@@ -68,12 +50,21 @@ public class Main {
 
 	  	Object object = Objects.requireNonNull(o);
 
-	  	return Arrays.stream(object.getClass().getMethods())
+	  	final ClassValue<Method[]> classValue = new ClassValue<Method[]>() {
+			@Override
+			protected Method[] computeValue(Class<?> type) {
+				return type.getMethods();
+			}
+	  	};
+
+	  	Method[] methods = classValue.get(object.getClass());
+
+	  	return Arrays.stream(methods)
 	  			.filter(method -> method.getName().startsWith("get") && 
 	  					method.isAnnotationPresent(JSONProperty.class))
 	  			.map(method -> getMethodName(method) + " : " + callGetter(object, method))
 	  			.collect(Collectors.joining(", ", "{ ", " }"));
 
-	  }
+	  	}
 
 	}
