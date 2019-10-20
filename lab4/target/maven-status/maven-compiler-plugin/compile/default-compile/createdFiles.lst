@@ -1,0 +1,12 @@
+META-INF/CompilerHints
+fr/umlv/java/inside/generated/LoggerBenchMark_no_op_jmhTest.class
+fr/umlv/java/inside/Logger$1.class
+fr/umlv/java/inside/generated/LoggerBenchMark_simple_logger_jmhTest.class
+META-INF/BenchmarkList
+fr/umlv/java/inside/generated/LoggerBenchMark_jmhType_B3.class
+fr/umlv/java/inside/LoggerBenchMark.class
+fr/umlv/java/inside/Logger.class
+fr/umlv/java/inside/generated/LoggerBenchMark_jmhType_B1.class
+fr/umlv/java/inside/generated/LoggerBenchMark_jmhType.class
+fr/umlv/java/inside/LoggerBenchMark$AndroidApp.class
+fr/umlv/java/inside/generated/LoggerBenchMark_jmhType_B2.class
