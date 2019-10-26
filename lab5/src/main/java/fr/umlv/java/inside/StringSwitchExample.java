@@ -90,8 +90,14 @@ public class StringSwitchExample {
 	 static class InliningCache extends MutableCallSite {
 		 
 	    private static final MethodHandle SLOW_PATH;
+	    
 	    static {
-	      SLOW_PATH = ;
+	    	Lookup lookup = MethodHandles.lookup();
+			try {
+				SLOW_PATH = lookup.findVirtual(InliningCache.class, "slowPath", MethodType.methodType(int.class, String.class));
+			} catch (NoSuchMethodException | IllegalAccessException e) {
+				throw new AssertionError(e);
+			}
 	    }
 	    
 	    private final List<String> matches;
@@ -99,7 +105,7 @@ public class StringSwitchExample {
 	    public InliningCache(String... matches) {
 	      super(MethodType.methodType(int.class, String.class));
 	      this.matches = List.of(matches);
-	      setTarget(MethodHandles.insertArgument(SLOW_PATH, 0, this));
+	      setTarget(MethodHandles.insertArguments(SLOW_PATH, 0, this));
 	    }
 	    
 	    private int slowPath(String value) {
@@ -107,7 +113,8 @@ public class StringSwitchExample {
 	    	MethodHandle test = MethodHandles.insertArguments(STRING_EQUALS, 1, value);
 			MethodHandle target = MethodHandles.dropArguments(MethodHandles.constant(int.class, index), 0, String.class) ;
 			MethodHandle fallback = getTarget();
-			setTarget(MethodHandles.guardWithTest(test, target, fallback));	    	
+			setTarget(MethodHandles.guardWithTest(test, target, fallback));
+			return index;
 	    }
 	    
 	  }
