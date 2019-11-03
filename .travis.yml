@@ -7,12 +7,12 @@ os:
   
 env :
   matrix :
-    - TARGET : "lab1"
-    - TARGET : "lab2"
-    - TARGET : "lab3"
-    - TARGET : "lab4"
-    - TARGET : "lab5"
-    - TARGET : "lab6"
+    - LAB : "lab1"
+    - LAB : "lab2"
+    - LAB : "lab3"
+    - LAB : "lab4"
+    - LAB : "lab5"
+    - LAB : "lab6"
     
 script:
   - cd $LAB && mvn package
