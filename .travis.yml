@@ -15,5 +15,4 @@ env :
     - TARGET : "lab6"
     
 script:
-  - cd $LAB
-  - mvn package
+  - cd $LAB && mvn package
